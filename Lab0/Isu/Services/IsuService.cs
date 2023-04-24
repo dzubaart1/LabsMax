@@ -5,39 +5,42 @@ namespace Isu.Services
 {
     public class IsuService : IIsuService
     {
-        private List<Group> _list;
+        private List<Group> _groupList;
+        private List<Student> _studentList;
         public IsuService()
         {
-            _list = new List<Group>();
+            _groupList = new List<Group>();
+            _studentList = new List<Student>();
         }
 
-        public int ElementCount()
-        {
-            return _list.Count;
-        }
+        public IReadOnlyList<Student> Students { get { return _studentList; } }
+        public IReadOnlyList<Group> Groups { get { return _groupList; } }
 
         public Group AddGroup(GroupName name)
         {
             var group = new Group(name);
-            _list.Add(group);
+            _groupList.Add(group);
             return group;
         }
 
         public Student AddStudent(Group group, string name)
         {
-            var student = new Student(name);
-            group.Students.Add(student);
+            var student = new Student(name, group);
+            group.AddStudent(student);
+            _studentList.Add(student);
             return student;
         }
 
         public void ChangeStudentGroup(Student student, Group newGroup)
         {
-            
+            student.Group.RemoveStudent(student);
+            newGroup.AddStudent(student);
+            student.ChangeGroup(newGroup);
         }
 
         public Group? FindGroup(GroupName groupName)
         {
-            throw new NotImplementedException();
+            return Groups.FirstOrDefault(group => group.GroupName.Equals(groupName));
         }
 
         public List<Group> FindGroups(CourseNumber courseNumber)

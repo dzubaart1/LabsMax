@@ -4,17 +4,23 @@ namespace Isu.Entities;
 
 public class Group
 {
+    private List<Student> _student;
     public Group(GroupName groupName)
     {
         GroupName = groupName;
-        Students = new List<Student>();
+        _student = new List<Student>();
     }
 
-    public List<Student> Students { get; set; } // IReadOnlyList<Student> Students => _student;
+    public IReadOnlyList<Student> Students => _student;
     public GroupName GroupName { get; private set; }
 
-    public int GetCount()
+    public void AddStudent(Student student)
     {
-        return Students.Count;
+        _student.Add(student);
+    }
+
+    public void RemoveStudent(Student student)
+    {
+        _student.Remove(student);
     }
 }
