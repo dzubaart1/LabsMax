@@ -19,4 +19,19 @@ public class Student
     {
         Group = group;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is int id)
+        {
+            return Id.Equals(id);
+        }
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
 }

@@ -8,4 +8,19 @@ public class CourseNumber
     }
 
     public int Number { get; private set; }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is CourseNumber num)
+        {
+            return Number.Equals(num.Number);
+        }
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Number.GetHashCode();
+    }
 }

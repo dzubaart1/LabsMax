@@ -45,22 +45,28 @@ namespace Isu.Services
 
         public List<Group> FindGroups(CourseNumber courseNumber)
         {
-            throw new NotImplementedException();
+            var listOfGroups = new List<Group>();
+            listOfGroups.Add(Groups.First(group => group.GroupName.Course.Equals(courseNumber)));
+            return listOfGroups;
         }
 
         public Student? FindStudent(int id)
         {
-            throw new NotImplementedException();
+            return Students.FirstOrDefault(student => student.Id.Equals(id));
         }
 
         public List<Student> FindStudents(GroupName groupName)
         {
-            throw new NotImplementedException();
+            var listOfStudents = new List<Student>();
+            listOfStudents.Add(Students.First(student => student.Group.GroupName.Equals(groupName)));
+            return listOfStudents;
         }
 
         public List<Student> FindStudents(CourseNumber courseNumber)
         {
-            throw new NotImplementedException();
+            var listOfStudents = new List<Student>();
+            listOfStudents.Add(Students.First(student => student.Group.GroupName.Course.Equals(courseNumber)));
+            return listOfStudents;
         }
 
         public Student GetStudent(int id)
