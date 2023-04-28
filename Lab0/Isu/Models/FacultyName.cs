@@ -4,6 +4,11 @@
     {
         public FacultyName(char name)
         {
+            if (!char.IsLetter(name))
+            {
+                throw new ArgumentException("Неверное имя факультета");
+            }
+
             ShortName = name;
         }
 

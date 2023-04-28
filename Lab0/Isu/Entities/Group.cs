@@ -1,9 +1,11 @@
 using Isu.Models;
+using Isu.Tools;
 
 namespace Isu.Entities;
 
 public class Group
 {
+    private const int MAXSTUDENTS = 30;
     private List<Student> _student;
     public Group(GroupName groupName)
     {
@@ -16,6 +18,11 @@ public class Group
 
     public void AddStudent(Student student)
     {
+        if (Students.Count == MAXSTUDENTS)
+        {
+            throw new OutOfRangeStudentException();
+        }
+
         _student.Add(student);
     }
 

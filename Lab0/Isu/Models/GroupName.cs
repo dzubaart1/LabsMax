@@ -4,9 +4,14 @@ public class GroupName
 {
     public GroupName(string name)
     {
-        Name = name;
+        if (name.Length <= 4)
+        {
+            throw new ArgumentException("Слишком короткое имя");
+        }
+
         Faculty = new FacultyName(name[0]);
         Course = new CourseNumber(name[1]);
+        Name = name;
     }
 
     public FacultyName Faculty { get; private set; }

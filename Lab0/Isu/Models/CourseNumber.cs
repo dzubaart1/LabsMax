@@ -2,9 +2,14 @@ namespace Isu.Models;
 
 public class CourseNumber
 {
-    public CourseNumber(int number)
+    public CourseNumber(char number)
     {
-        Number = number;
+        if (!char.IsDigit(number))
+        {
+            throw new ArgumentException("Неверный номер курса");
+        }
+
+        Number = (int)number;
     }
 
     public int Number { get; private set; }

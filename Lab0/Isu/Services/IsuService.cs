@@ -45,9 +45,7 @@ namespace Isu.Services
 
         public List<Group> FindGroups(CourseNumber courseNumber)
         {
-            var listOfGroups = new List<Group>();
-            listOfGroups.Add(Groups.First(group => group.GroupName.Course.Equals(courseNumber)));
-            return listOfGroups;
+            return _groupList.FindAll(group => group.GroupName.Course.Equals(courseNumber));
         }
 
         public Student? FindStudent(int id)
@@ -57,21 +55,17 @@ namespace Isu.Services
 
         public List<Student> FindStudents(GroupName groupName)
         {
-            var listOfStudents = new List<Student>();
-            listOfStudents.Add(Students.First(student => student.Group.GroupName.Equals(groupName)));
-            return listOfStudents;
+             return _studentList.FindAll(student => student.Group.GroupName.Equals(groupName));
         }
 
         public List<Student> FindStudents(CourseNumber courseNumber)
         {
-            var listOfStudents = new List<Student>();
-            listOfStudents.Add(Students.First(student => student.Group.GroupName.Course.Equals(courseNumber)));
-            return listOfStudents;
+            return _studentList.FindAll(student => student.Group.GroupName.Course.Equals(courseNumber));
         }
 
         public Student GetStudent(int id)
         {
-            throw new NotImplementedException();
+            return Students.First(student => student.Id.Equals(id));
         }
     }
 }

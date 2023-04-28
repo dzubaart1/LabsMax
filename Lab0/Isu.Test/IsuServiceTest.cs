@@ -1,6 +1,7 @@
 using Isu.Entities;
 using Isu.Models;
 using Isu.Services;
+using Isu.Tools;
 using Xunit;
 
 namespace Isu.Test;
@@ -8,23 +9,32 @@ namespace Isu.Test;
 public class IsuServiceTest
 {
     [Fact]
-    public void AddStudentToGroup_StudentHasGroupAndGroupContainsStudent()
+    public void ReachMaxStudentPerGroup_ThrowException()
     {
+        var service = new IsuService();
+        var groupName = new GroupName("T2948");
+        Entities.Group group = service.AddGroup(groupName);
+        for (int i = 0; i < 30; i++)
+        {
+            service.AddStudent(group, "Ivanov");
+        }
+
+        Assert.Throws<OutOfRangeStudentException>(() => { service.AddStudent(group, "Ivanov"); });
     }
 
     [Fact]
-    public void ReachMaxStudentPerGroup_ThrowException() { }
-
-    [Fact]
-    public void CreateGroupWithInvalidName_ThrowException() { }
+    public void CreateGroupWithInvalidName_ThrowException()
+    {
+        Assert.Throws<ArgumentException>(() => { var groupName = new GroupName("231234"); });
+    }
 
     [Fact]
     public void TransferStudentToAnotherGroup_GroupChanged()
     {
         var service = new IsuService();
-        var groupName = new GroupName("T2948");
+        var groupName1 = new GroupName("T2948");
         var groupName2 = new GroupName("V4948");
-        Entities.Group group1 = service.AddGroup(groupName);
+        Entities.Group group1 = service.AddGroup(groupName1);
         Entities.Group group2 = service.AddGroup(groupName2);
         Student student = service.AddStudent(group1, "Ivanov");
         service.ChangeStudentGroup(student, group2);
