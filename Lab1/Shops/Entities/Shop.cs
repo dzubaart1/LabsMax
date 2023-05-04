@@ -12,7 +12,7 @@
             Name = name;
             Аddress = аddress;
             Warehouse = new Warehouse();
-            Money = 0;
+            Money = 1000000;
         }
 
         public int Id { get; private set; }
@@ -26,12 +26,21 @@
             Warehouse.RegisterProduct(product);
         }
 
-        public void Delivery(ProductDict dict)
+        public void Delivery(ProductDict productDict)
         {
-            if (dict != null)
+            if (productDict == null || productDict.GetCount() == 0)
             {
-                foreach (var kvp in dict._)
+                // Слоздать класс искключений
+                return;
             }
+
+            if (Money - productDict.GetPrice() < 0)
+            {
+                // Слоздать класс искключений
+                return;
+            }
+
+            Warehouse.Delivery(productDict);
         }
     }
 }

@@ -18,14 +18,21 @@
             _products.Add(product, 0);
         }
 
-        public double GerPrice()
+        public double GetPrice()
         {
             double price = 0;
             foreach (Product item in _products.Keys)
             {
-                int count = (int)_products.Values;
-                price += item.Price;
+                int count = _products[item];
+                price += item.Price * count;
             }
+
+            return price;
+        }
+
+        public int GetCount()
+        {
+            return _products.Count;
         }
     }
 }

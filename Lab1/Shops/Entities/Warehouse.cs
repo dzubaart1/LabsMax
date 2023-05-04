@@ -13,5 +13,13 @@
         {
             _products.RegisterProduct(product);
         }
+
+        public void Delivery(ProductDict productDict)
+        {
+            foreach (var item in productDict)
+            {
+
+            }
+        }
     }
 }

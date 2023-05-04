@@ -9,15 +9,19 @@
             _shops = new List<Shop>();
         }
 
-        public void AddShop(string name, string аddress)
+        public delegate void RegisterProductDelegate(Product product);
+        public event RegisterProductDelegate? UpdateRegisterProduct;
+
+        public void Create(string name, string аddress)
         {
             var shop = new Shop(name, аddress);
+            UpdateRegisterProduct += shop.RegisterProduct;
             _shops.Add(shop);
         }
 
-        public void RegisterProduct(Shop shop, Product product)
+        public void RegisterProduct(Product product)
         {
-            shop.RegisterProduct(product);
+            UpdateRegisterProduct?.Invoke(product);
         }
     }
 }
