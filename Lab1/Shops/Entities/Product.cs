@@ -4,14 +4,13 @@
     // Количество
     public class Product
     {
-        public Product(int price, int amount)
+        public Product(int price, string name)
         {
             Price = price;
-            Amount = amount;
+            Name = name;
         }
 
         public int Price { get; private set; }
-        public int Amount { get; private set; }
+        public string Name { get; private set; }
     }
-
 }

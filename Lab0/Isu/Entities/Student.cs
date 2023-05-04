@@ -22,9 +22,9 @@ public class Student
 
     public override bool Equals(object? obj)
     {
-        if (obj is int id)
+        if (obj is Student student)
         {
-            return Id.Equals(id);
+            return Id.Equals(student);
         }
 
         return false;

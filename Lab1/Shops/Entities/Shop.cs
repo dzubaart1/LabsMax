@@ -11,17 +11,27 @@
             Id = IdGenerator.GenerateId();
             Name = name;
             Аddress = аddress;
-            Products = new List<Product>();
+            Warehouse = new Warehouse();
+            Money = 0;
         }
 
         public int Id { get; private set; }
         public string Name { get; private set; }
         public string Аddress { get; private set; }
-        public List<Product> Products { get; private set; }
+        public Warehouse Warehouse { get; private set; }
+        public double Money { get; private set; }
 
-        public void AddProduct(Product product)
+        public void RegisterProduct(Product product)
         {
-            Products.Add(product);
+            Warehouse.RegisterProduct(product);
+        }
+
+        public void Delivery(ProductDict dict)
+        {
+            if (dict != null)
+            {
+                foreach (var kvp in dict._)
+            }
         }
     }
 }
