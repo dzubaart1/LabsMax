@@ -16,10 +16,34 @@
 
         public void Delivery(ProductDict productDict)
         {
-            foreach (var item in productDict)
+            foreach (KeyValuePair<Product, int> item in productDict)
             {
+                if (!_products.ContainsKey(item.Key))
+                {
+                    throw new ListNotContainsProduct();
+                }
 
+                _products.AddProduct(item);
             }
+        }
+
+        public bool ContainsProduct(Product product)
+        {
+            return _products.ContainsKey(product);
+        }
+
+        public int ProductCount(Product product)
+        {
+            int i = 0;
+            foreach (KeyValuePair<Product, int> item in _products)
+            {
+                if (item.Key == product)
+                {
+                    i = item.Value;
+                }
+            }
+
+            return i;
         }
     }
 }

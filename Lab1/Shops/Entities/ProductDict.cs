@@ -1,6 +1,8 @@
-﻿namespace Shops.Entities
+﻿using System.Collections;
+
+namespace Shops.Entities
 {
-    public class ProductDict
+    public class ProductDict : IEnumerable<KeyValuePair<Product, int>>
     {
         private Dictionary<Product, int> _products;
         public ProductDict()
@@ -33,6 +35,29 @@
         public int GetCount()
         {
             return _products.Count;
+        }
+
+        public bool ContainsKey(Product key)
+        {
+            return _products.ContainsKey(key);
+        }
+
+        public void AddProduct(KeyValuePair<Product, int> keyValue)
+        {
+            _products[keyValue.Key] += keyValue.Value;
+        }
+
+        public IEnumerator<KeyValuePair<Product, int>> GetEnumerator()
+        {
+            foreach (KeyValuePair<Product, int> item in _products)
+            {
+                yield return item;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

@@ -30,17 +30,28 @@
         {
             if (productDict == null || productDict.GetCount() == 0)
             {
-                // Слоздать класс искключений
-                return;
+                throw new NullDictException();
             }
 
             if (Money - productDict.GetPrice() < 0)
             {
-                // Слоздать класс искключений
-                return;
+                throw new NotEnoughMoneyException();
             }
 
             Warehouse.Delivery(productDict);
+            Money -= productDict.GetPrice();
+        }
+
+        public bool ContainsProduct(Product product)
+        {
+            return Warehouse.ContainsProduct(product);
+        }
+
+        public int ProductCount(Product product)
+        {
+            return Warehouse.ProductCount(product);
         }
     }
 }
+
+// тест на создание магазинов, на доставку
