@@ -27,6 +27,19 @@
             }
         }
 
+        public void Buy(ProductDict productDict)
+        {
+            foreach (KeyValuePair<Product, int> item in productDict)
+            {
+                if (!_products.ContainsKey(item.Key))
+                {
+                    throw new ListNotContainsProduct();
+                }
+
+                _products.BuyProduct(item);
+            }
+        }
+
         public bool ContainsProduct(Product product)
         {
             return _products.ContainsKey(product);

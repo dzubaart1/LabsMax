@@ -4,12 +4,15 @@
     // покупка
     public class Сustomer
     {
-        public Сustomer(Dictionary<Product, int> dict)
+        public Сustomer(string name, double moneyBefore, ProductDict productDict)
         {
-            ProductList = new ProductDict(dict);
+            Name = name;
+            Money = moneyBefore;
+            ProductDict = productDict;
         }
 
         public double Money { get; private set; }
-        public ProductDict ProductList { get; private set; }
+        public string Name { get; private set; }
+        public ProductDict ProductDict { get; private set; }
     }
 }

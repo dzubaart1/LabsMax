@@ -47,6 +47,11 @@ namespace Shops.Entities
             _products[keyValue.Key] += keyValue.Value;
         }
 
+        public void BuyProduct(KeyValuePair<Product, int> keyValue)
+        {
+            _products[keyValue.Key] -= keyValue.Value;
+        }
+
         public IEnumerator<KeyValuePair<Product, int>> GetEnumerator()
         {
             foreach (KeyValuePair<Product, int> item in _products)

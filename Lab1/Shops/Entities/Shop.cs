@@ -42,6 +42,22 @@
             Money -= productDict.GetPrice();
         }
 
+        public void Buy(Сustomer customer)
+        {
+            if (customer.ProductDict == null || customer.ProductDict.GetCount() == 0)
+            {
+                throw new NullDictException();
+            }
+
+            if (customer.ProductDict.GetPrice() > customer.Money)
+            {
+                throw new NotEnoughMoneyException();
+            }
+
+            Warehouse.Buy(customer.ProductDict);
+            Money += customer.ProductDict.GetPrice();
+        }
+
         public bool ContainsProduct(Product product)
         {
             return Warehouse.ContainsProduct(product);

@@ -43,4 +43,38 @@ public class ShopsTest
         Assert.Equal(50, shop.ProductCount(productToothPaste));
         Assert.Equal(100, shop.ProductCount(productMilk));
     }
+
+    [Fact]
+    public void Buy_ProductsWasBuyed()
+    {
+        var shopManager = new ShopManager();
+        Shop shop = shopManager.Create("Pyaterochka", "Pushkina28");
+        var productToothPaste = new Product(140, "Toothpaste");
+        var productMilk = new Product(80, "Milk");
+
+        shopManager.RegisterProduct(productToothPaste);
+        shopManager.RegisterProduct(productMilk);
+
+        var deliveryList = new Dictionary<Product, int>()
+        {
+            { productToothPaste, 50 },
+            { productMilk, 100 },
+        };
+        var productDict = new ProductDict(deliveryList);
+
+        shop.Delivery(productDict);
+
+        var customerList = new Dictionary<Product, int>()
+        {
+            { productToothPaste, 2 },
+            { productMilk, 3 },
+        };
+        var customerDict = new ProductDict(customerList);
+        var customer = new Сustomer("name", 1000, customerDict);
+
+        shop.Buy(customer);
+
+        Assert.Equal(48, shop.ProductCount(productToothPaste));
+        Assert.Equal(97, shop.ProductCount(productMilk));
+    }
 }
