@@ -1,4 +1,4 @@
-﻿namespace Shops.Entities
+﻿namespace Shops.Tools
 {
     public class NotEnoughMoneyException : Exception
     {

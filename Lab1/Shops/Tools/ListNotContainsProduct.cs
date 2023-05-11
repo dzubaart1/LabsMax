@@ -1,4 +1,4 @@
-﻿namespace Shops.Entities
+﻿namespace Shops.Tools
 {
     internal class ListNotContainsProduct : Exception
     {

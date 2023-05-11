@@ -1,4 +1,4 @@
-﻿namespace Shops.Entities
+﻿namespace Shops.Models
 {
     public static class IdGenerator
     {

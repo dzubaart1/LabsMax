@@ -1,4 +1,5 @@
 ﻿using Shops.Entities;
+using Shops.Models;
 using Xunit;
 
 namespace Shops.Test;
@@ -30,16 +31,18 @@ public class ShopsTest
         Shop shop = shopManager.Create("Pyaterochka", "Pushkina28");
         var productToothPaste = new Product(140, "Toothpaste");
         var productMilk = new Product(80, "Milk");
+
         shopManager.RegisterProduct(productToothPaste);
         shopManager.RegisterProduct(productMilk);
-        var deliveryList = new Dictionary<Product, int>()
-        {
-            { productToothPaste, 50 },
-            { productMilk, 100 },
-        };
 
-        var productDict = new ProductDict(deliveryList);
+        var productDict = new ProductDict();
+        productDict.RegisterProduct(productToothPaste);
+        productDict.AddProduct(productToothPaste, 50);
+        productDict.RegisterProduct(productMilk);
+        productDict.AddProduct(productMilk, 100);
+
         shop.Delivery(productDict);
+
         Assert.Equal(50, shop.ProductCount(productToothPaste));
         Assert.Equal(100, shop.ProductCount(productMilk));
     }
@@ -55,26 +58,28 @@ public class ShopsTest
         shopManager.RegisterProduct(productToothPaste);
         shopManager.RegisterProduct(productMilk);
 
-        var deliveryList = new Dictionary<Product, int>()
-        {
-            { productToothPaste, 50 },
-            { productMilk, 100 },
-        };
-        var productDict = new ProductDict(deliveryList);
+        var productDict = new ProductDict();
+        productDict.RegisterProduct(productToothPaste);
+        productDict.AddProduct(productToothPaste, 50);
+        productDict.RegisterProduct(productMilk);
+        productDict.AddProduct(productMilk, 100);
 
         shop.Delivery(productDict);
+        double shopMoneyBefore = shop.Money;
 
-        var customerList = new Dictionary<Product, int>()
-        {
-            { productToothPaste, 2 },
-            { productMilk, 3 },
-        };
-        var customerDict = new ProductDict(customerList);
+        var customerDict = new ProductDict();
+        customerDict.RegisterProduct(productToothPaste);
+        customerDict.AddProduct(productToothPaste, 2);
+        customerDict.RegisterProduct(productMilk);
+        customerDict.AddProduct(productMilk, 3);
         var customer = new Сustomer("name", 1000, customerDict);
+        double customerMoneyBefore = customer.Money;
 
         shop.Buy(customer);
 
         Assert.Equal(48, shop.ProductCount(productToothPaste));
         Assert.Equal(97, shop.ProductCount(productMilk));
+        Assert.Equal(shopMoneyBefore + customerDict.GetPrice(), shop.Money);
+        Assert.Equal(customerMoneyBefore - customerDict.GetPrice(), customer.Money);
     }
 }

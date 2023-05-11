@@ -1,4 +1,6 @@
-﻿namespace Shops.Entities
+﻿using Shops.Models;
+
+namespace Shops.Entities
 {
     public class ShopManager
     {

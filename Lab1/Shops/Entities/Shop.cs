@@ -1,11 +1,11 @@
-﻿namespace Shops.Entities
+﻿using Shops.Models;
+using Shops.Tools;
+
+namespace Shops.Entities
 {
-    // уникальный идентификатор
-    // название
-    // адрес
-    // товар
     public class Shop
     {
+        public const double UPPRICE = 0.14;
         public Shop(string name, string аddress)
         {
             Id = IdGenerator.GenerateId();
@@ -23,6 +23,7 @@
 
         public void RegisterProduct(Product product)
         {
+            product.SetUpPrice(UPPRICE);
             Warehouse.RegisterProduct(product);
         }
 
@@ -55,6 +56,7 @@
             }
 
             Warehouse.Buy(customer.ProductDict);
+            customer.Buy();
             Money += customer.ProductDict.GetPrice();
         }
 
@@ -69,5 +71,3 @@
         }
     }
 }
-
-// тест на создание магазинов, на доставку

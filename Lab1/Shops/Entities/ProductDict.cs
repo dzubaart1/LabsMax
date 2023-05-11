@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Shops.Models;
 
 namespace Shops.Entities
 {
@@ -8,11 +9,6 @@ namespace Shops.Entities
         public ProductDict()
         {
             _products = new Dictionary<Product, int>();
-        }
-
-        public ProductDict(Dictionary<Product, int> dict)
-        {
-            _products = dict;
         }
 
         public void RegisterProduct(Product product)
@@ -42,14 +38,14 @@ namespace Shops.Entities
             return _products.ContainsKey(key);
         }
 
-        public void AddProduct(KeyValuePair<Product, int> keyValue)
+        public void AddProduct(Product product, int count)
         {
-            _products[keyValue.Key] += keyValue.Value;
+            _products[product] += count;
         }
 
-        public void BuyProduct(KeyValuePair<Product, int> keyValue)
+        public void BuyProduct(Product product, int count)
         {
-            _products[keyValue.Key] -= keyValue.Value;
+            _products[product] -= count;
         }
 
         public IEnumerator<KeyValuePair<Product, int>> GetEnumerator()

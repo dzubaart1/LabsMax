@@ -1,4 +1,7 @@
-﻿namespace Shops.Entities
+﻿using Shops.Models;
+using Shops.Tools;
+
+namespace Shops.Entities
 {
     public class Warehouse
     {
@@ -23,7 +26,7 @@
                     throw new ListNotContainsProduct();
                 }
 
-                _products.AddProduct(item);
+                _products.AddProduct(item.Key, item.Value);
             }
         }
 
@@ -36,7 +39,7 @@
                     throw new ListNotContainsProduct();
                 }
 
-                _products.BuyProduct(item);
+                _products.BuyProduct(item.Key, item.Value);
             }
         }
 
